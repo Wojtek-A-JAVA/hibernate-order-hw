@@ -67,11 +67,15 @@ public class Main {
         User kate = new User();
         kate.setEmail("kate@gmail.com");
         kate.setPassword("qwerty");
-        AuthenticationService authenticationService =
+        try {
+            AuthenticationService authenticationService =
                 (AuthenticationService) injector.getInstance(AuthenticationService.class);
-        UserService userService = (UserService) injector.getInstance(UserService.class);
-        authenticationService.register(kate.getEmail(), kate.getPassword());
-        kate.setId(userService.findByEmail(kate.getEmail()).get().getId());
+            UserService userService = (UserService) injector.getInstance(UserService.class);
+            authenticationService.register(kate.getEmail(), kate.getPassword());
+            kate.setId(userService.findByEmail(kate.getEmail()).get().getId());
+        } catch (Exception e) {
+            throw new RegistrationException("Registration of user: " + kate + " failed");
+        }
 
         ShoppingCartService shoppingCartService =
                 (ShoppingCartService) injector.getInstance(ShoppingCartService.class);
