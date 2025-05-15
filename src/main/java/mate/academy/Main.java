@@ -62,14 +62,14 @@ public class Main {
 
         System.out.println(movieSessionService.get(yesterdayMovieSession.getId()));
         System.out.println(movieSessionService.findAvailableSessions(
-                        fastAndFurious.getId(), LocalDate.now()));
+                fastAndFurious.getId(), LocalDate.now()));
 
         User kate = new User();
         kate.setEmail("kate@gmail.com");
         kate.setPassword("qwerty");
         try {
             AuthenticationService authenticationService =
-                (AuthenticationService) injector.getInstance(AuthenticationService.class);
+                    (AuthenticationService) injector.getInstance(AuthenticationService.class);
             UserService userService = (UserService) injector.getInstance(UserService.class);
             authenticationService.register(kate.getEmail(), kate.getPassword());
             kate.setId(userService.findByEmail(kate.getEmail()).get().getId());
